@@ -68,7 +68,8 @@ public class TopicsController {
 		Authentication authentication = (Authentication) principal;
 		UserInf user = (UserInf) authentication.getPrincipal();
 
-		List<Topic> topics = repository.findAllByOrderByUpdatedAtDesc();
+		//List<Topic> topics = repository.findAllByOrderByUpdatedAtDesc();
+		List<Topic> topics = repository.findAll();
 		List<TopicForm> list = new ArrayList<>();
 		for (Topic entity : topics) {
 			TopicForm form = getTopic(user, entity);
