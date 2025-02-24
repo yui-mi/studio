@@ -20,7 +20,6 @@ form-control-file {
   z-index: 10000; }
 
 #messages ul {
-  background: rgba(255, 255, 255, 0.2);
   border-radius: 5px;
   padding: 4px;
   color: black; }
@@ -43,7 +42,7 @@ nav.navbar {
   margin-bottom: 20px;
   padding: 0; }
   nav.navbar a {
-    color: #fff; }
+    color: #ff40ff; }
   nav.navbar img {
     height: 40px; }
 
@@ -85,14 +84,14 @@ nav.navbar {
 
 .topics-index-wrapper {
   padding: 80px 0 20px;
-  background-color: #fafafa;
+  background-color: blueviolet;
   min-height: calc(100vh - 180px);
   overflow: hidden; }
   .topics-index-wrapper main {
-    background-color: #fff;
+    background-color: #ff40ff;
     padding: 20px 0;
     margin-top: 30px;
-    border: 1px solid #e6ecf0;
+    border: 1px solid #0432ff;
     border-radius: 6px; }
     .topics-index-wrapper main .author {
       margin-top: 10px;
@@ -124,7 +123,7 @@ nav.navbar {
       overflow: auto;
       white-space: pre-wrap;
       word-wrap: break-word;
-      background-color: white;
+      background-color: #ff2600;
       border: none; }
     .topics-index-wrapper main .comments ul li {
       list-style: none; }
