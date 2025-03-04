@@ -86,22 +86,4 @@ public class User extends AbstractEntity implements UserDetails, UserInf {
 	public boolean isEnabled() {
 		return true;
 	}
-
-	@Override
-	public Long getUserId() {
-		// TODO 自動生成されたメソッド・スタブ
-		return null;
-	}
-
-	@Override
-	public String getPassword() {
-		// TODO 自動生成されたメソッド・スタブ
-		return null;
-	}
-
-	@Override
-	public String getUsername() {
-		// TODO 自動生成されたメソッド・スタブ
-		return null;
-	}
 }

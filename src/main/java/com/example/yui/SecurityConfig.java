@@ -1,5 +1,13 @@
 package com.example.yui;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserRequest;
+import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserService;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
+import org.springframework.security.oauth2.core.OAuth2AccessToken;
+import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
+import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,10 +26,15 @@ import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 
 import com.example.yui.filter.FormAuthenticationProvider;
 import com.example.yui.repository.UserRepository;
+import com.example.yui.entity.SocialUser;
+import com.example.yui.entity.User;
+import com.example.yui.entity.User.Authority;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+
+	protected static Logger log = LoggerFactory.getLogger(SecurityConfig.class);
 
 	@Autowired
 	private UserRepository repository;
@@ -36,6 +49,7 @@ public class SecurityConfig {
 
 		RequestMatcher publicMatchers = new OrRequestMatcher(
 				new AntPathRequestMatcher("/"),
+				new AntPathRequestMatcher("/favicon.ico"),
 				new AntPathRequestMatcher("/error"),
 				new AntPathRequestMatcher("/h2-console/**"),
 				new AntPathRequestMatcher("/login"),
@@ -56,6 +70,13 @@ public class SecurityConfig {
 						.defaultSuccessUrl("/topics") // ログイン成功時の遷移先
 						.failureUrl("/login-failure") // ログイン失敗時の遷移先
 						.permitAll()) // 未ログインでもアクセス可能
+				.oauth2Login(oauth2 -> oauth2
+						.loginPage("/login") // ログイン画面
+						.defaultSuccessUrl("/topics") // ログイン成功時の遷移先
+						.failureUrl("/login-failure") // ログイン失敗時の遷移先
+						.permitAll() // 未ログインでもアクセス可能
+						.userInfoEndpoint(userInfoEndpoint -> userInfoEndpoint
+								.oidcUserService(this.oidcUserService())))
 				.logout(logout -> logout
 						.logoutSuccessUrl("/logout-complete") // ログアウト成功時の遷移先
 						.invalidateHttpSession(true)
@@ -85,5 +106,27 @@ public class SecurityConfig {
 	@Bean
 	PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
+	}
+
+	public OAuth2UserService<OidcUserRequest, OidcUser> oidcUserService() {
+		final OidcUserService delegate = new OidcUserService();
+		return (userRequest) -> {
+			OidcUser oidcUser = delegate.loadUser(userRequest);
+			OAuth2AccessToken accessToken = userRequest.getAccessToken();
+
+			log.debug("accessToken={}", accessToken);
+
+			oidcUser = new DefaultOidcUser(oidcUser.getAuthorities(), oidcUser.getIdToken(), oidcUser.getUserInfo());
+			String email = oidcUser.getEmail();
+			User user = repository.findByUsername(email);
+			if (user == null) {
+				user = new User(email, oidcUser.getFullName(), "", Authority.ROLE_USER);
+				repository.saveAndFlush(user);
+			}
+			oidcUser = new SocialUser(oidcUser.getAuthorities(), oidcUser.getIdToken(), oidcUser.getUserInfo(),
+					user.getUserId());
+
+			return oidcUser;
+		};
 	}
 }
