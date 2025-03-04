@@ -8,7 +8,7 @@
 		</layout>
 	</appender>
 
-	<logger name="com.example.pictgram">
+	<logger name="com.example.yui">
 		<level value="DEBUG" />
 	</logger>
 
