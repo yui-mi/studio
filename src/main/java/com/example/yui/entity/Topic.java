@@ -1,6 +1,7 @@
 package com.example.yui.entity;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.List;
 
 import jakarta.persistence.Column;
@@ -42,6 +43,9 @@ public class Topic extends AbstractEntity implements Serializable {
 
 	@Column
 	private Double longitude;
+
+	@Column(name = "publication_date")
+	private LocalDate publicationDate;
 
 	@ManyToOne
 	@JoinColumn(name = "userId", insertable = false, updatable = false)
