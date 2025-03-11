@@ -187,8 +187,7 @@ public class TopicsController {
 		UserInf user = (UserInf) authentication.getPrincipal();
 		System.out.println("⭐︎︎︎⭐︎︎︎︎⭐︎︎︎︎⭐︎︎︎︎⭐︎︎︎︎⭐︎︎︎︎⭐︎︎︎︎⭐︎︎︎︎⭐︎︎︎︎︎" + user);
 		System.out.println(user.getUserId());
-		//entity.setUserId(user.getUserId());
-		entity.setUserId(3L);
+		entity.setUserId(user.getUserId());
 		File destFile = null;
 		if (isImageLocal) {
 			destFile = saveImageLocal(image, entity);
