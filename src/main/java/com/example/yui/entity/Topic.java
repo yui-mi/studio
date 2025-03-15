@@ -44,8 +44,11 @@ public class Topic extends AbstractEntity implements Serializable {
 	@Column
 	private Double longitude;
 
-	@Column(name = "publication_date")
-	private LocalDate publicationDate;
+	@Column(name = "reservation_date")
+	private String reservationDate;
+
+	@Column(name = "reservation_time")
+	private String reservationTime;
 
 	@ManyToOne
 	@JoinColumn(name = "userId", insertable = false, updatable = false)

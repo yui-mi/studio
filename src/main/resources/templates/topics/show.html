@@ -11,6 +11,8 @@
 	<div>
 		<p><strong>ID:</strong> <span th:text="${topic.id}"></span></p>
 		<p><strong>Description:</strong> <span th:text="${topic.description}"></span></p>
+		<p><strong>reservationDate:</strong> <span th:text="${topic.reservationDate}"></span></p>
+		<p><strong>reservationTime:</strong> <span th:text="${topic.reservationTime}"></span></p>
 		<form class="new_topic" id="new_topic" method="get" th:action="@{/topic/edit}">
 			<input type="hidden" name="id" th:value="${topic.id}" />
 			<input type="submit" value="変更" class="btn w-100 btn-outline-dark" />
@@ -20,11 +22,10 @@
 			<input type="submit" value="削除" class="btn w-100 btn-outline-dark" />
 		</form>
 		<form class="new_topic" id="new_topic" method="get" th:action="@{/topics}">
-					<input type="hidden" name="id" th:value="${topic.id}" />
-					<input type="submit" value="HOME" class="btn w-100 btn-outline-dark" />
-				</form>
+			<input type="hidden" name="id" th:value="${topic.id}" />
+			<input type="submit" value="カレンダー画面に戻る" class="btn w-100 btn-outline-dark" />
+		</form>
 	</div>
-
 	</div>
 </body>
 
