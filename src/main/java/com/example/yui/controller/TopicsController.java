@@ -188,6 +188,8 @@ public class TopicsController {
 		System.out.println("⭐︎︎︎⭐︎︎︎︎⭐︎︎︎︎⭐︎︎︎︎⭐︎︎︎︎⭐︎︎︎︎⭐︎︎︎︎⭐︎︎︎︎⭐︎︎︎︎︎" + user);
 		System.out.println(user.getUserId());
 		entity.setUserId(user.getUserId());
+		entity.setReservationDate(form.getReservationDate());
+		entity.setReservationTime(form.getReservationTime());
 		File destFile = null;
 		if (isImageLocal) {
 			destFile = saveImageLocal(image, entity);
@@ -240,6 +242,8 @@ public class TopicsController {
 	public String update(@ModelAttribute("form") TopicForm form, Model model) {
 		Topic entity = repository.getReferenceById(form.getId());
 		System.out.println("aioueaiueo︎" + form.getId());
+		entity.setReservationDate(form.getReservationDate());
+		entity.setReservationTime(form.getReservationTime());
 		entity.setDescription(form.getDescription());
 		System.out.println("⭐︎⭐︎⭐︎⭐︎⭐︎⭐︎⭐︎⭐︎⭐︎" + entity);
 		repository.saveAndFlush(entity);
