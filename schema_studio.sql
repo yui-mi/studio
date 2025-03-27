@@ -17,7 +17,10 @@ CREATE TABLE IF NOT EXISTS users (
 CREATE TABLE IF NOT EXISTS topics (
   id SERIAL NOT NULL,
   user_id INT NOT NULL,
+  reservation_date VARCHAR(8) NOT NULL,
+  reservation_time VARCHAR(4) NOT NULL,
   path VARCHAR(255) NOT NULL,
+  full_name VARCHAR(50) NOT NULL,
   description VARCHAR(1000) NOT NULL,
   latitude VARCHAR(20),
   longitude VARCHAR(20),

@@ -1,3 +1,4 @@
+
 package com.example.yui.entity;
 
 import java.io.Serializable;
@@ -49,11 +50,14 @@ public class Topic extends AbstractEntity implements Serializable {
 
 	@Column(name = "reservation_time")
 	private String reservationTime;
-
+	
+	@Column(name = "full_name")
+	private String fullName;
+	
 	@ManyToOne
 	@JoinColumn(name = "userId", insertable = false, updatable = false)
 	private User user;
-
+	
 	@OneToMany
 	@JoinColumn(name = "topicId", insertable = false, updatable = false)
 	private List<Favorite> favorites;

@@ -25,12 +25,16 @@ public class TopicForm {
 	private String imageData;
 
 	@NotEmpty
-	@Size(max = 1000) //直す
+	@Size(max = 8) 
 	private String reservationDate;
 	@NotEmpty
-	@Size(max = 1000) //直す
+	@Size(max = 4) 
 	private String reservationTime;
-
+	
+	@NotEmpty
+	@Size(max = 50) 
+	private String fullName;
+	
 	private String path;
 
 	@NotEmpty
