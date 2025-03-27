@@ -190,6 +190,7 @@ public class TopicsController {
 		entity.setUserId(user.getUserId());
 		entity.setReservationDate(form.getReservationDate());
 		entity.setReservationTime(form.getReservationTime());
+		entity.setFullName(form.getFullName());
 		File destFile = null;
 		if (isImageLocal) {
 			destFile = saveImageLocal(image, entity);
@@ -245,6 +246,7 @@ public class TopicsController {
 		entity.setReservationDate(form.getReservationDate());
 		entity.setReservationTime(form.getReservationTime());
 		entity.setDescription(form.getDescription());
+		entity.setFullName(form.getFullName());
 		System.out.println("⭐︎⭐︎⭐︎⭐︎⭐︎⭐︎⭐︎⭐︎⭐︎" + entity);
 		repository.saveAndFlush(entity);
 		return "redirect:/topic/show?id=" + form.getId();
